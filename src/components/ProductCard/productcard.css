@@ -9,9 +9,9 @@
   transition: transform 0.2s ease;
 }
 
-.product-card:hover {
+/* .product-card:hover {
   transform: translateY(-4px);
-}
+} */
 
 .product-card img {
   height: 180px;

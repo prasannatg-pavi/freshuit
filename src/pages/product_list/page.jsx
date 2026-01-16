@@ -13,8 +13,9 @@ const ProductListing = () => {
   return (
     <>
       {/* <SearchFilter onSearch={setSearch} /> */}
-
+<div style={{marginTop:"80px"}} />
       <div className="product-grid">
+        
         {products.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
