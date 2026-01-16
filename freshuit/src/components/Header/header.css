@@ -1,0 +1,13 @@
+.header {
+  width: 100%;
+  background: #ffffff;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  align-items: center;
+  position: fixed;
+  margin-bottom: 140px;
+}
+
+.header img {
+  height: 42px;
+}
