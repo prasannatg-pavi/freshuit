@@ -19,19 +19,19 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* Product Name */}
-      <h3 style={styles.name}>
+      <div style={styles.name}>
         {product.name}
-      </h3>
+      </div>
 
       {/* Product Title – 3 lines */}
-      <p style={styles.title}>
+      {/* <p style={styles.title}>
         {product.title}
-      </p>
+      </p> */}
 
       {/* Description – 5 lines */}
-      <p style={styles.description}>
+      <div style={styles.description}>
         {product.description}
-      </p>
+      </div>
 
       {/* Read More */}
       <span
@@ -103,9 +103,9 @@ const styles = {
   description: {
     fontSize: '12px',
     color: '#666',
-    // marginTop: '2px',
+    marginTop: '10px',
     display: '-webkit-box',
-    WebkitLineClamp: 5,
+    WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden'
   },
