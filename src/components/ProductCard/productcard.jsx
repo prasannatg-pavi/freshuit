@@ -58,10 +58,11 @@ const styles = {
   card: {
     backgroundColor: '#ffffff',
     borderRadius: '12px',
-    padding: '12px',
+    margin: '12px',
+    // padding: '10px',
     display: 'flex',
     flexDirection: 'column',
-    boxShadow: '0 5px 14px rgba(0,0,0,0.08)',
+    boxShadow: '0 5px 14px rgba(0,0,0,0.18)',
     height: '100%'
   },
 
@@ -69,13 +70,15 @@ const styles = {
     height: '160px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: '10px',
   },
 
   image: {
     maxHeight: '100%',
     maxWidth: '100%',
-    objectFit: 'contain'
+    objectFit: 'contain',
+    padding: '10px',
   },
 
   name: {
@@ -85,7 +88,8 @@ const styles = {
     display: '-webkit-box',
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    margin: '10px',
   },
 
   /* 3-line ellipsis */
@@ -96,6 +100,7 @@ const styles = {
     display: '-webkit-box',
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
+    margin: '10px',
     overflow: 'hidden'
   },
 
@@ -107,14 +112,16 @@ const styles = {
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
+    margin: '10px',
     overflow: 'hidden'
   },
 
   readMore: {
     fontSize: '12px',
     color: '#2563eb',
-    marginTop: '4px',
+    marginTop: '-10px',
     cursor: 'pointer',
+    margin: '10px',
     fontWeight: 500
   },
 
@@ -126,6 +133,7 @@ const styles = {
     textAlign: 'center',
     borderRadius: '8px',
     textDecoration: 'none',
+    margin: '10px',
     fontWeight: 600
   }
 };
