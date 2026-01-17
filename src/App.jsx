@@ -4,7 +4,7 @@ import ProductListing from './pages/product_list/page';
 function App() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <ProductListing />
     </>
   );
