@@ -2,29 +2,69 @@ import { useState } from 'react';
 import { useProducts } from '../../hooks/useProducts';
 import ProductCard from '../../components/ProductCard/productcard';
 import SearchFilter from '../../components/SearchFilter/searchfilter';
-import "./styles.css"
 
 const ProductListing = () => {
   const [search, setSearch] = useState('');
   const { products, loading } = useProducts(search);
 
-  if (loading) return <p>Loading products...</p>;
+  if (loading) return <p style={{ textAlign: 'center' }}>Loading...</p>;
 
   return (
-    <>
-      {/* <SearchFilter onSearch={setSearch} /> */}
-<div style={{marginTop:"80px"}} />
-      <div className="product-grid">
-        
+    <div style={styles.pageWrapper}>
+      <SearchFilter onSearch={setSearch} />
+
+      <div style={styles.grid}>
         {products.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
+const styles = {
+  pageWrapper: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '12px'
+  },
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+    gap: '16px'
+  }
+};
+
 export default ProductListing;
+
+
+// import { useState } from 'react';
+// import { useProducts } from '../../hooks/useProducts';
+// import ProductCard from '../../components/ProductCard/productcard';
+// import SearchFilter from '../../components/SearchFilter/searchfilter';
+// import "./styles.css"
+
+// const ProductListing = () => {
+//   const [search, setSearch] = useState('');
+//   const { products, loading } = useProducts(search);
+
+//   if (loading) return <p>Loading products...</p>;
+
+//   return (
+//     <>
+//       {/* <SearchFilter onSearch={setSearch} /> */}
+// <div style={{marginTop:"80px"}} />
+//       <div className="product-grid">
+        
+//         {products.map(product => (
+//           <ProductCard key={product.id} product={product} />
+//         ))}
+//       </div>
+//     </>
+//   );
+// };
+
+// export default ProductListing;
 
 
 // import { useState } from 'react'
