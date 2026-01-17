@@ -38,7 +38,7 @@ const ProductListing = () => {
     return () => window.removeEventListener('resize', updateColumns);
   }, []);
 
-    if (loading) return <p style={{ textAlign: 'center' }}>Loading...</p>;
+    // if (loading) return <p style={{ textAlign: 'center' }}>Loading...</p>;
 
   return (
     <>
@@ -51,7 +51,7 @@ const ProductListing = () => {
       {/* <SearchFilter onSearch={setSearch} /> */}
 
       {loading ? (
-        <p style={{ textAlign: 'center' }}>Loading...</p>
+        <p style={{ textAlign: 'center' }}>Loading your products...</p>
       ) : (
               <div
         style={{
