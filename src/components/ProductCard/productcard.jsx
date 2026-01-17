@@ -58,7 +58,7 @@ const styles = {
   card: {
     backgroundColor: '#ffffff',
     borderRadius: '12px',
-    margin: '12px',
+    // margin: '12px',
     // padding: '10px',
     display: 'flex',
     flexDirection: 'column',
