@@ -3,59 +3,111 @@ import { useProducts } from '../../hooks/useProducts';
 import ProductCard from '../../components/ProductCard/productcard';
 import SearchFilter from '../../components/SearchFilter/searchfilter';
 
+import { useCategories } from '../../hooks/useCategories';
+import Header from '../../components/Header/header';
+
 const ProductListing = () => {
+  const categories = useCategories();
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [search, setSearch] = useState('');
-  const { products, loading } = useProducts(search);
-  const [columns, setColumns] = useState(2);
 
   useEffect(() => {
-    const updateColumns = () => {
-      const width = window.innerWidth;
+    setSelectedCategories(categories.map(c => c.id));
+    console.log("CCCC", categories)
+  }, [categories]);
 
-      if (width >= 1600) setColumns(5);
-      else if (width >= 641) setColumns(4);
-      else setColumns(2);
-    };
-
-    updateColumns();
-    window.addEventListener('resize', updateColumns);
-
-    return () => window.removeEventListener('resize', updateColumns);
-  }, []);
-
-  if (loading) return <p style={{ textAlign: 'center' }}>Loading...</p>;
+  const { products, loading } = useProducts(
+    search,
+    selectedCategories
+  );
 
   return (
-    <div style={styles.page}>
+    <>
+      <Header
+        categories={categories}
+        selectedCategories={selectedCategories}
+        setSelectedCategories={setSelectedCategories}
+      />
+
       {/* <SearchFilter onSearch={setSearch} /> */}
 
-      <div
-        style={{
-          ...styles.grid,
-          gridTemplateColumns: `repeat(${columns}, 1fr)`
-        }}
-      >
-        {products.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-    </div>
+      {loading ? (
+        <p style={{ textAlign: 'center' }}>Loading...</p>
+      ) : (
+        <div style={styles.grid}>
+          {products.map(p => (
+            <ProductCard key={p.id} product={p} />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 
 const styles = {
-  page: {
-    maxWidth: '1800px',
-    margin: '0 auto',
-    padding: '12px'
-  },
   grid: {
     display: 'grid',
-    gap: '14px'
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    gap: '14px',
+    padding: '12px'
   }
 };
 
 export default ProductListing;
+
+// const ProductListing = () => {
+//   const [search, setSearch] = useState('');
+//   const { products, loading } = useProducts(search);
+//   const [columns, setColumns] = useState(2);
+
+//   useEffect(() => {
+//     const updateColumns = () => {
+//       const width = window.innerWidth;
+
+//       if (width >= 1600) setColumns(5);
+//       else if (width >= 641) setColumns(4);
+//       else setColumns(2);
+//     };
+
+//     updateColumns();
+//     window.addEventListener('resize', updateColumns);
+
+//     return () => window.removeEventListener('resize', updateColumns);
+//   }, []);
+
+//   if (loading) return <p style={{ textAlign: 'center' }}>Loading...</p>;
+
+//   return (
+//     <div style={styles.page}>
+//       {/* <SearchFilter onSearch={setSearch} /> */}
+
+//       <div
+//         style={{
+//           ...styles.grid,
+//           gridTemplateColumns: `repeat(${columns}, 1fr)`
+//         }}
+//       >
+//         {products.map(product => (
+//           <ProductCard key={product.id} product={product} />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// const styles = {
+//   page: {
+//     maxWidth: '1800px',
+//     margin: '0 auto',
+//     padding: '12px'
+//   },
+//   grid: {
+//     display: 'grid',
+//     gap: '14px'
+//   }
+// };
+
+// export default ProductListing;
 
 
 // import { useState } from 'react';
