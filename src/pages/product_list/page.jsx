@@ -21,6 +21,25 @@ const ProductListing = () => {
     selectedCategories
   );
 
+    const [columns, setColumns] = useState(2);
+
+  useEffect(() => {
+    const updateColumns = () => {
+      const width = window.innerWidth;
+
+      if (width >= 1600) setColumns(5);
+      else if (width >= 641) setColumns(3);
+      else setColumns(2);
+    };
+
+    updateColumns();
+    window.addEventListener('resize', updateColumns);
+
+    return () => window.removeEventListener('resize', updateColumns);
+  }, []);
+
+    if (loading) return <p style={{ textAlign: 'center' }}>Loading...</p>;
+
   return (
     <>
       <Header
@@ -34,7 +53,12 @@ const ProductListing = () => {
       {loading ? (
         <p style={{ textAlign: 'center' }}>Loading...</p>
       ) : (
-        <div style={styles.grid}>
+              <div
+        style={{
+          ...styles.grid,
+          gridTemplateColumns: `repeat(${columns}, 1fr)`
+        }}
+      >
           {products.map(p => (
             <ProductCard key={p.id} product={p} />
           ))}
