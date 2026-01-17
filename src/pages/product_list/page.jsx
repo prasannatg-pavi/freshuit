@@ -6,15 +6,15 @@ import SearchFilter from '../../components/SearchFilter/searchfilter';
 const ProductListing = () => {
   const [search, setSearch] = useState('');
   const { products, loading } = useProducts(search);
-  const [columns, setColumns] = useState(3);
+  const [columns, setColumns] = useState(2);
 
   useEffect(() => {
     const updateColumns = () => {
       const width = window.innerWidth;
 
-      if (width > 1440) setColumns(5);
-      else if (width > 1024) setColumns(4);
-      else setColumns(3);
+      if (width >= 1600) setColumns(5);
+      else if (width >= 641) setColumns(4);
+      else setColumns(2);
     };
 
     updateColumns();
@@ -45,13 +45,13 @@ const ProductListing = () => {
 
 const styles = {
   page: {
-    maxWidth: '1600px',
+    maxWidth: '1800px',
     margin: '0 auto',
     padding: '12px'
   },
   grid: {
     display: 'grid',
-    gap: '16px'
+    gap: '14px'
   }
 };
 
