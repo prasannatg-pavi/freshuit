@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useProducts } from '../../hooks/useProducts';
 import ProductCard from '../../components/ProductCard/productcard';
 import SearchFilter from '../../components/SearchFilter/searchfilter';
@@ -6,14 +6,35 @@ import SearchFilter from '../../components/SearchFilter/searchfilter';
 const ProductListing = () => {
   const [search, setSearch] = useState('');
   const { products, loading } = useProducts(search);
+  const [columns, setColumns] = useState(3);
+
+  useEffect(() => {
+    const updateColumns = () => {
+      const width = window.innerWidth;
+
+      if (width > 1440) setColumns(5);
+      else if (width > 1024) setColumns(4);
+      else setColumns(3);
+    };
+
+    updateColumns();
+    window.addEventListener('resize', updateColumns);
+
+    return () => window.removeEventListener('resize', updateColumns);
+  }, []);
 
   if (loading) return <p style={{ textAlign: 'center' }}>Loading...</p>;
 
   return (
-    <div style={styles.pageWrapper}>
-      <SearchFilter onSearch={setSearch} />
+    <div style={styles.page}>
+      {/* <SearchFilter onSearch={setSearch} /> */}
 
-      <div style={styles.grid}>
+      <div
+        style={{
+          ...styles.grid,
+          gridTemplateColumns: `repeat(${columns}, 1fr)`
+        }}
+      >
         {products.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
@@ -23,14 +44,13 @@ const ProductListing = () => {
 };
 
 const styles = {
-  pageWrapper: {
-    maxWidth: '1200px',
+  page: {
+    maxWidth: '1600px',
     margin: '0 auto',
     padding: '12px'
   },
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
     gap: '16px'
   }
 };
