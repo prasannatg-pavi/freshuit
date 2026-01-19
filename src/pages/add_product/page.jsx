@@ -2,9 +2,15 @@ import { useState } from 'react';
 import { supabase } from '../../api/supabaseClient';//'../api/supabaseClient';
 import { useCategories } from '../../hooks/useCategories';
 
+// const ADMIN_PASSWORD = 'freshuit@123'; // 🔴 change before production
+const ENCODED_PASSWORD = 'cHJhc3BhdmlAMTIz';
+
+
 const AddProduct = () => {
   const categories = useCategories() || [];
-
+const [authorized, setAuthorized] = useState(false);
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState('');
   const [form, setForm] = useState({
     name: '',
     description: '',
@@ -17,7 +23,22 @@ const AddProduct = () => {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+ 
+  const decodePassword = (encoded) => {
+  return atob(encoded); // Base64 decode
+};
 
+  /* ---------- Password Validation ---------- */
+  const handleAuth = () => {
+      const decodedPassword = decodePassword(ENCODED_PASSWORD);
+
+    if (password === decodedPassword) {
+      setAuthorized(true);
+      setAuthError('');
+    } else {
+      setAuthError('Incorrect password');
+    }
+  };
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -89,6 +110,32 @@ const AddProduct = () => {
     setLoading(false);
   };
 
+ /* ---------- Password Screen ---------- */
+  if (!authorized) {
+    return (
+      <div style={styles.authPage}>
+        <div style={styles.authBox}>
+          <h3>Admin Access</h3>
+
+          <input
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={styles.inputpassword}
+          />
+ 
+          <button onClick={handleAuth} style={styles.button}>
+            Continue
+          </button>
+
+          {authError && (
+            <p style={styles.error}>{authError}</p>
+          )}
+        </div>
+      </div>
+    );
+  }
   return (
     <div style={styles.page}>
       <h2 style={styles.heading}>Add Product</h2>
@@ -188,6 +235,19 @@ const AddProduct = () => {
 };
 
 const styles = {
+ authPage: {
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  authBox: {
+    width: '320px',
+    padding: '24px',
+    borderRadius: '12px',
+    border: '1px solid #e5e7eb',
+    textAlign: 'center'
+  },
   page: {
     maxWidth: '640px',
     margin: '32px auto',
@@ -205,6 +265,13 @@ const styles = {
   input: {
     padding: '12px',
     borderRadius: '8px',
+    border: '1px solid #d1d5db',
+    fontSize: '14px'
+  },
+  inputpassword: {
+    padding: '12px',
+    borderRadius: '8px',
+    border:"1px",
     border: '1px solid #d1d5db',
     fontSize: '14px'
   },
@@ -231,6 +298,7 @@ const styles = {
     padding: '12px',
     borderRadius: '10px',
     backgroundColor: '#2563eb',
+    border:"0px",
     color: '#fff',
     fontWeight: 600,
     cursor: 'pointer'
