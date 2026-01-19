@@ -94,7 +94,7 @@ const [showAdModal, setShowAdModal] = useState(true);
                 Grab the best deals on trending products.
                 Limited time offers available now.
               </p> */}
-               <img src={banner} style={{width:"100%", height:"650px"}} />
+               <img src={banner} style={{width:"100%", height:"450px"}} />
           
             </div>
   {/* AD BACKGROUND */}
