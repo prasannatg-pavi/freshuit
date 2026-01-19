@@ -12,11 +12,22 @@ const ProductListing = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [search, setSearch] = useState('');
 const [showAdModal, setShowAdModal] = useState(true);
+ const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     // show modal only once per page load
     setShowAdModal(true);
   }, []);
+
+  const handleClose = () => {
+    setIsClosing(true);
+
+    setTimeout(() => {
+      setShowAdModal(false);
+    }, 300); // must match transition duration
+  };
+
+  // if (!showAdModal) return null;
 
   useEffect(() => {
     setSelectedCategories(categories.map(c => c.id));
@@ -63,9 +74,15 @@ const [showAdModal, setShowAdModal] = useState(true);
         <>
          {/* Advertisement Modal */}
       {showAdModal && (
-        <div style={styles.overlay}>
+        <div 
+        // style={styles.overlay}
+        style={{
+        ...styles.overlay,
+        opacity: isClosing ? 0 : 1
+      }}
+        >
           <div style={styles.modal}>
-            {/* <div style={styles.content}> */}
+            <div style={styles.content}>
               {/* <h3 style={styles.title}>🔥 Special Offers</h3> */}
 
 {/* <img
@@ -77,18 +94,21 @@ const [showAdModal, setShowAdModal] = useState(true);
                 Grab the best deals on trending products.
                 Limited time offers available now.
               </p> */}
-            {/* </div> */}
+               <img src={banner} style={{width:"100%", height:"650px"}} />
+          
+            </div>
   {/* AD BACKGROUND */}
-      <div
+      {/* <div
         style={{
           ...styles.adBackground,
+          width:"100%", height:"530px",
           backgroundImage: `url(${banner})` // change image path
         }}
-      />
-      <img src={banner} style={{width:"100%", height:"530px"}} />
-            <button
+      /> */}
+       <button
               style={styles.shopButton}
-              onClick={() => setShowAdModal(false)}
+              onClick={handleClose}
+              // onClick={() => setShowAdModal(false)}
             >
               SHOP NOW
             </button>
@@ -122,6 +142,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+        transition: 'opacity 0.3s ease-in-out',
     zIndex: 9999
   },
  adBackground: {
@@ -140,7 +161,7 @@ const styles = {
   },
 
   content: {
-    padding: '20px',
+    // padding: '20px',
     textAlign: 'center'
   },
 
