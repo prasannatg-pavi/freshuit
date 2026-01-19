@@ -5,11 +5,18 @@ import SearchFilter from '../../components/SearchFilter/searchfilter';
 
 import { useCategories } from '../../hooks/useCategories';
 import Header from '../../components/Header/header';
-
+import banner from "../../assets/banner.png"
+// require("../../assets/banner.png")
 const ProductListing = () => {
   const categories = useCategories();
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [search, setSearch] = useState('');
+const [showAdModal, setShowAdModal] = useState(true);
+
+  useEffect(() => {
+    // show modal only once per page load
+    setShowAdModal(true);
+  }, []);
 
   useEffect(() => {
     setSelectedCategories(categories.map(c => c.id));
@@ -53,6 +60,41 @@ const ProductListing = () => {
       {loading ? (
         <p style={{ textAlign: 'center' }}>Loading your products...</p>
       ) : (
+        <>
+         {/* Advertisement Modal */}
+      {showAdModal && (
+        <div style={styles.overlay}>
+          <div style={styles.modal}>
+            {/* <div style={styles.content}> */}
+              {/* <h3 style={styles.title}>🔥 Special Offers</h3> */}
+
+{/* <img
+  src={banner}
+  alt="Ad"
+  style={{ width: '60%', borderRadius: '12px' }}
+/> */}
+              {/* <p style={styles.text}>
+                Grab the best deals on trending products.
+                Limited time offers available now.
+              </p> */}
+            {/* </div> */}
+  {/* AD BACKGROUND */}
+      <div
+        style={{
+          ...styles.adBackground,
+          backgroundImage: `url(${banner})` // change image path
+        }}
+      />
+      <img src={banner} style={{width:"100%", height:"530px"}} />
+            <button
+              style={styles.shopButton}
+              onClick={() => setShowAdModal(false)}
+            >
+              SHOP NOW
+            </button>
+          </div>
+        </div>
+      )}
               <div
         style={{
           ...styles.grid,
@@ -63,12 +105,64 @@ const ProductListing = () => {
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
+        </>
       )}
     </>
   );
 };
 
 const styles = {
+    overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    background: 'rgba(0,0,0,0.55)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 9999
+  },
+ adBackground: {
+    flex: 1,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  },
+  modal: {
+    maxWidth: '420px',
+    background: '#fff',
+    borderRadius: '16px',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+
+  content: {
+    padding: '20px',
+    textAlign: 'center'
+  },
+
+  title: {
+    marginBottom: '12px'
+  },
+
+  text: {
+    fontSize: '14px',
+    color: '#4b5563'
+  },
+
+  shopButton: {
+    marginTop: 'auto', // 🔥 keeps button at bottom
+    padding: '14px',
+    border: 'none',
+    background: '#111827',
+    color: '#fff',
+    fontWeight: 600,
+    fontSize: '15px',
+    cursor: 'pointer'
+  },
   grid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 1fr)',
