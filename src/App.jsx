@@ -1,11 +1,20 @@
 import Header from './components/Header/header';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import ProductListing from './pages/product_list/page';
+import AddProduct from './pages/add_product/page';
 
 function App() {
   return (
     <>
+     <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ProductListing />} />
+        <Route path="/addProduct" element={<AddProduct />} />
+      </Routes>
+    </BrowserRouter>
       {/* <Header /> */}
-      <ProductListing />
+      {/* <ProductListing /> */}
     </>
   );
 }

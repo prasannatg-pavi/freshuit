@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* Product Name */}
-      <div style={styles.name}>
+      <div style={styles.name}  onClick={redirect}>
         {product.name}
       </div>
 
@@ -85,6 +85,9 @@ const styles = {
     fontSize: '14px',
     fontWeight: 600,
     marginTop: '8px',
+    minHeight:"65px",
+    color:"#2563eb",
+      cursor: 'pointer',
     display: '-webkit-box',
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
@@ -127,8 +130,9 @@ const styles = {
 
   button: {
     marginTop: '10px',
-    backgroundColor: '#2563eb',
-    color: '#fff',
+    color: '#2563eb',
+    border:"1px solid #2563eb",
+    backgroundColor: '#fff',
     padding: '9px',
     textAlign: 'center',
     borderRadius: '8px',
